@@ -9,12 +9,14 @@ const OVERWORLD = server.getWorlds()[0];
 const NETHER = server.getWorlds()[1];
 const END = server.getWorlds()[2];
 
+var clipboard = [];
+
 
 function setBlock(location, block) {
     location.getBlock().setType(block);
 }
 
-function fill(location1, location2, block) {
+function modify_area(location1, location2, callback) {
     var x1 = location1.getX();
     var y1 = location1.getY();
     var z1 = location1.getZ();
@@ -40,8 +42,28 @@ function fill(location1, location2, block) {
         for(var y = y1; y < y2; y++) {
             for(var z = z1; z < z2; z++) {
                 var location = new Location(location1.getWorld(), x, y, z);
-                setBlock(location, block);
+                callback(location);
             }
         }
     }
+}
+
+function fill(location1, location2, block) {
+    function callback(location) {
+        setBlock(location, block);
+    }
+
+    modify_area(location1, location2, callback);
+}
+
+function copy(location1, location2) {
+    var blocks = []
+
+    function callback(location) {
+        var block = location.getBlock();
+        blocks.push(block.type);
+    }
+
+    modify_area(location1, location2, callback);
+    clipboard = blocks;
 }

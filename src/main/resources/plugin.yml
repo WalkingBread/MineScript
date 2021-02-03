@@ -1,0 +1,6 @@
+name: MineScript
+version: "1.0"
+main: pl.skorupinski.minescript.Minescript
+commands:
+  js:
+    description: compiles given script

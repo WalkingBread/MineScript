@@ -24,15 +24,20 @@ public class Minescript extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("MineScript plugin disabled.");
+        getLogger().info("MineScript disabled.");
     }
 
     private void register_commands() {
         handler.add_command("js", new CommandlineScriptExecutor());
     }
 
-    private void load_scripts() {
-        InputStream in = getClass().getResourceAsStream("lib/utils.js");
+    private void load_script(String path) {
+        InputStream in = getClass().getResourceAsStream(path);
         engine.exec_file(in);
+    }
+
+    private void load_scripts() {
+        load_script("lib/langutils.js");
+        load_script("lib/pluginutils.js");
     }
 }

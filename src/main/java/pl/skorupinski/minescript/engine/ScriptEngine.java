@@ -3,24 +3,25 @@ package pl.skorupinski.minescript.engine;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 public class ScriptEngine {
-    public Context ctx;
-    public Scriptable scope;
+    private Context ctx;
 
     public ScriptEngine() {
         ctx = Context.enter();
-        scope = ctx.initStandardObjects();
     }
 
-    public String exec_script(String script) {
+    public String execScript(String script, Scriptable scope) {
         Object output = ctx.evaluateString(scope, script, "", 1, null);
 
         return Context.toString(output);
     }
 
-    public String exec_file(InputStream in) {
+    public String execFile(InputStream in, Scriptable scope) {
         Object output = null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         try {
@@ -31,5 +32,9 @@ public class ScriptEngine {
             e.printStackTrace();
         }
         return Context.toString(output);
+    }
+
+    public Context getContext() {
+        return ctx;
     }
 }

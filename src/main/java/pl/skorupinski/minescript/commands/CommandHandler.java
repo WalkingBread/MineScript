@@ -29,7 +29,7 @@ public class CommandHandler implements CommandExecutor {
         return false;
     }
 
-    public void add_command(String command_name, Executor executor) {
+    public void addCommand(String command_name, Executor executor) {
         commands.put(command_name, executor);
         plugin.getCommand(command_name).setExecutor(this);
     }

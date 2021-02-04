@@ -4,3 +4,7 @@ main: pl.skorupinski.minescript.Minescript
 commands:
   js:
     description: compiles given script
+  openscope:
+    description: opens new js scope
+  closescope:
+    description: closes current js scope
